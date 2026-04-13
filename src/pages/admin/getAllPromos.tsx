@@ -7,11 +7,13 @@ import {
   ShieldCheck, AlertTriangle, Calendar
 } from "lucide-react";
 import authSvc from "../../services/Auth.service";
+import { Navigate, useNavigate } from "react-router";
 
 const PromoListPage = () => {
   const [loading, setLoading] = useState(true);
   const [promos, setPromos] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const fetchPromos = async () => {
     try {
@@ -39,7 +41,7 @@ const PromoListPage = () => {
 
   return (
     <div className="p-6 md:p-12 bg-slate-950 min-h-screen text-slate-200">
-      <div className="max-w-[1400px] mx-auto space-y-8">
+      <div className="max-w-350 mx-auto space-y-8">
         
         {/* --- TOP NAVIGATION BAR --- */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-slate-900/50 p-6 rounded-[2.5rem] border border-white/5">
@@ -70,7 +72,7 @@ const PromoListPage = () => {
             
             {/* ADD PROMO BUTTON */}
             <button 
-              onClick={() => window.location.href = '/admin/promos/add-promo'} // Adjust path to your route
+              onClick={() =>  navigate('/admin/promos/add-promo')} // Adjust path to your route
               className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-emerald-950 px-6 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-emerald-500/10 active:scale-95"
             >
               <Plus size={18} /> Add Promo
