@@ -6,13 +6,13 @@ import {
   ChevronLeft, ChevronRight, Eye, 
   Search, Banknote 
 } from "lucide-react";
-import { useNavigate } from "react-router"; // 1. Import useNavigate
+import { useNavigate } from "react-router"
 import authSvc from "../../services/Auth.service";
 import { useAuth } from "../../context/auth.context";
 
 const DriverBookingPage = () => {
   const { loggedInUser } = useAuth();
-  const navigate = useNavigate(); // 2. Initialize navigate
+  const navigate = useNavigate(); 
   const [loading, setLoading] = useState(true);
   const [bookings, setBookings] = useState<any[]>([]);
   const [stats, setStats] = useState({ totalRevenue: 0, todayRevenue: 0 });
@@ -24,7 +24,7 @@ const DriverBookingPage = () => {
   });
 
   const fetchBookings = async (page: number = 1) => {
-    // Only proceed if loggedInUser is available
+    
     if (!loggedInUser?._id) return;
 
     try {
@@ -48,7 +48,7 @@ const DriverBookingPage = () => {
     }
   };
 
-  // 3. Ensure fetch runs when component mounts OR when user session loads
+
   useEffect(() => {
     fetchBookings(pagination.currentPage);
   }, [loggedInUser?._id]); 
@@ -62,7 +62,6 @@ const DriverBookingPage = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       
-      {/* --- STATS CARDS --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-slate-900 border border-white/5 p-6 rounded-4xl flex items-center gap-5">
           <div className="size-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500 border border-emerald-500/20">
@@ -85,7 +84,7 @@ const DriverBookingPage = () => {
         </div>
       </div>
 
-      {/* --- TABLE CONTROLS --- */}
+      
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-slate-900/50 p-4 rounded-3xl border border-white/5">
         <h2 className="text-xl font-black italic uppercase text-white tracking-tighter ml-4">
             Booking <span className="text-emerald-500">Logs</span>
@@ -96,7 +95,6 @@ const DriverBookingPage = () => {
         </div>
       </div>
 
-      {/* --- BOOKINGS TABLE --- */}
       <div className="bg-slate-900 border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
@@ -157,7 +155,7 @@ const DriverBookingPage = () => {
                     </span>
                   </td>
                   <td className="p-6 text-right">
-                    {/* 4. Action Button with Redirect */}
+                    
                     <button 
                       onClick={() => navigate(`/driver/bookings/${order._id}`)}
                       className="p-2.5 bg-white/5 hover:bg-emerald-500 hover:text-emerald-950 text-slate-400 rounded-xl transition-all group-hover:scale-110"
@@ -171,7 +169,7 @@ const DriverBookingPage = () => {
           </table>
         </div>
 
-        {/* --- PAGINATION CONTROLS --- */}
+        
         <div className="p-6 bg-white/2 flex items-center justify-between border-t border-white/5">
           <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
             Page {pagination.currentPage} of {pagination.totalPages}
