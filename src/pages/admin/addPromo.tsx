@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Ticket, Percent, Plus, Megaphone, Info, Calendar, DollarSign } from "lucide-react";
+import { Ticket, Plus, Megaphone, Info, Calendar, DollarSign } from "lucide-react";
 import authSvc from "../../services/Auth.service";
 
 const AdminOfferPages = () => {

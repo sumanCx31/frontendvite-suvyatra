@@ -38,7 +38,7 @@ export const RegisterDTO: Yup.ObjectSchema<IRegisterFormData> = Yup.object({
 
   role: Yup.string()
     .required("Role is required")
-    .oneOf(["admin", "user"], "Invalid role"),
+    .oneOf(["passenger", "driver"], "Invalid role"),
 
   address: Yup.string(),
 

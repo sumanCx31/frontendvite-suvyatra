@@ -32,7 +32,7 @@ const LoginForm: React.FC = () => {
     try {
       const response = await authSvc.postRequest("/auth/login", data);
 
-      console.log("Login response:", response);
+      // console.log("Login response:", response);
 
       if (response) {
         localStorage.setItem("accessToken", response.data.accessToken);
@@ -46,24 +46,21 @@ const LoginForm: React.FC = () => {
       const getUserData = await getUser();
 
       toast.success(`Welcome to ${getUserData.data.role}`, {
-        position: "top-right",
-        style: {
-          background: "#28a745",
-          color: "white",
-        },
+        position: "top-right"
       });
       console.log("UserDetail:  ",getUserData.data);
       
       setLoggedInUserProfile(getUserData.data,)
-
-      // Add slight delay for debugging (optional)
       setTimeout(() => {
         navigate("/"+getUserData.data.role);
       }, 300);
 
     } catch (error: any) {
-      console.error("Login failed:", error);
-      alert("Invalid email or password");
+      // console.error("Login failed:", error.data.message || error.message);
+      toast.error("Login failed!!!", {
+        description: error.data.message || error.message,
+        position: "top-right"
+      });
     }
   };
 
@@ -76,7 +73,7 @@ const LoginForm: React.FC = () => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-          {/* Email */}
+         
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2 ml-1">
               Email or Phone
