@@ -24,21 +24,19 @@ const DriverSeatReservation = () => {
   const [selectedSeatIds, setSelectedSeatIds] = useState<string[]>([]);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
-  // 1. Fetch Logic with enhanced path checking
   const fetchTripData = async () => {
     try {
       setFetching(true);
       const response = await authSvc.getRequest(`/trip-update/${tripId}`);
       
-      // DEBUG: If seats aren't showing, check this log in F12 Console
+     
       console.log("API Data received:", response.data);
 
-      // Path based on your Postman: response.data (Axios) -> data (Backend) -> seats
+      
       const fetchedSeats = response?.data?.data?.seats || response?.data?.seats || [];
       
       setSeats(fetchedSeats);
-      
-      // Auto-clean selection if a seat was booked by another user
+     
       setSelectedSeatIds(prev => 
         prev.filter(id => fetchedSeats.find((s: any) => s._id === id && !s.isBooked))
       );
@@ -53,7 +51,6 @@ const DriverSeatReservation = () => {
     if (tripId) fetchTripData();
   }, [tripId]);
 
-  // 2. Selection Logic
   const toggleSeat = (seatId: string, isBooked: boolean) => {
     if (isBooked) return; 
     setSelectedSeatIds((prev) =>
@@ -61,7 +58,7 @@ const DriverSeatReservation = () => {
     );
   };
 
-  // 3. Update Logic matching Postman: { "seats": [{ "seatNumber": "A11", "isBooked": true }] }
+
   const handleUpdate = async () => {
     if (selectedSeatIds.length === 0) return;
     

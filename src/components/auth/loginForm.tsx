@@ -113,12 +113,12 @@ const LoginForm: React.FC = () => {
               Remember me
             </label>
 
-            <a
-              href={`${import.meta.env.VITE_NEXTJS_FRONTEND_URL}/forget-password`}
+            <Link to="/forget-password"
+              
               className="text-emerald-400 hover:text-emerald-300 font-medium transition"
             >
               Forgot Password?
-            </a>
+            </Link>
           </div>
 
           {/* Submit Button */}

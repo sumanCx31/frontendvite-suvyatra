@@ -34,6 +34,7 @@ import BookingDetailPage from "../pages/driver/bookingDetailPage";
 import ChangePassword from "../components/changePassword";
 import userProfile from "../components/userProfile";
 import UpdateTripPage from "../pages/driver/updateTripPage";
+import ForgotPasswordPage from "../components/auth/forget-password";
 
 const routerConfig = createBrowserRouter([
   {
@@ -42,6 +43,7 @@ const routerConfig = createBrowserRouter([
     children: [
       { index: true, Component: LoginForm },
       { path: "register", Component: RegisterForm },
+      { path: "forget-password", Component: ForgotPasswordPage },
       { path: "activate/:token", Component: Activate },
     ],
   },
