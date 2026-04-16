@@ -24,7 +24,6 @@ const DriverDashboard = () => {
         const driverId = loggedInUser?._id; 
         const response: any = await authSvc.getRequest(`/order/my-orders/${driverId}`);
         
-        // Logic: authSvc usually returns response.data directly or the full Axios object
         const result = response; 
 
         if (result && result.status) {

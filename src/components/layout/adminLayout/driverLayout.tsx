@@ -21,6 +21,10 @@ const DriverPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { loggedInUser } = useAuth();
+  const handleLogout = () => { 
+  localStorage.clear(); 
+  navigate("/");
+};
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -138,6 +142,15 @@ const DriverPage = () => {
                 <Link to="/driver/settings/password" onClick={() => setOpen(false)} className="block">
                   <SubNavItem label="Password" active={location.pathname === "/driver/settings/password"} />
                 </Link>
+                <button 
+        onClick={() => {
+          handleLogout(); // Your logout logic function
+          setOpen(false); // Close the sidebar/menu
+        }} 
+        className="w-full block text-left"
+      >
+        <SubNavItem label="Logout" />
+      </button>
               </div>
             )}
           </div>

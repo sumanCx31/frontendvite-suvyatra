@@ -14,7 +14,6 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
-
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
 
@@ -52,13 +51,13 @@ const RegisterForm: React.FC = () => {
       const response = await axiosInstance.post("/auth/register", formData);
 
       toast.success("Registration successful !!", {
-        position: "top-right"
+        position: "top-right",
       });
-      console.log("API Response:", response.data);
-      navigate("/");
+      const userEmail = encodeURIComponent(data.email);
+      navigate(`/activate?email=${userEmail}`);
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Registration failed !!", {
-        position: "top-right"
+        position: "top-right",
       });
       // console.log("Registration Failed:", error.response?.data || error);
     }
@@ -116,7 +115,10 @@ const RegisterForm: React.FC = () => {
               name="gender"
               control={control}
               render={({ field }) => (
-                <select {...field} className="input w-full focus:outline-none focus:ring-0">
+                <select
+                  {...field}
+                  className="input w-full focus:outline-none focus:ring-0"
+                >
                   <option value="male">male</option>
                   <option value="female">female</option>
                 </select>
@@ -127,7 +129,10 @@ const RegisterForm: React.FC = () => {
               name="role"
               control={control}
               render={({ field }) => (
-                <select {...field} className="input w-full focus:outline-none focus:ring-0">
+                <select
+                  {...field}
+                  className="input w-full focus:outline-none focus:ring-0"
+                >
                   <option value="passenger">passenger</option>
                   <option value="driver">driver</option>
                 </select>

@@ -44,7 +44,7 @@ const routerConfig = createBrowserRouter([
       { index: true, Component: LoginForm },
       { path: "register", Component: RegisterForm },
       { path: "forget-password", Component: ForgotPasswordPage },
-      { path: "activate/:token", Component: Activate },
+      { path: "activate", Component: Activate },
     ],
   },
   {
