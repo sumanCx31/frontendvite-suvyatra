@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Table, ConfigProvider, theme, Tag } from "antd";
-import { Phone } from "lucide-react";
+import { Table, ConfigProvider, theme, Tag, Button } from "antd";
+import { Eye, Phone } from "lucide-react";
 import authSvc from "../../services/Auth.service";
+import { useNavigate } from "react-router";
 
 const UserRegistry = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState<any>({ users: [], stats: {} });
   const [loading, setLoading] = useState(true);
 
@@ -84,6 +86,21 @@ const UserRegistry = () => {
             {record.email}
           </div>
         </div>
+      ),
+    },
+     {
+      title: "Action",
+      key: "action",
+      render: (_: any, record: any) => (
+        <Button
+          type="text"
+          icon={<Eye size={16} className="text-blue-400" />}
+          // ✅ Changed from router.push to navigate()
+          onClick={() => navigate(`/admin/users/${record._id}`)} 
+          className="hover:bg-blue-500/10 flex items-center gap-2 text-blue-400 font-bold text-xs"
+        >
+          Details
+        </Button>
       ),
     },
     {

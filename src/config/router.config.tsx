@@ -35,6 +35,9 @@ import ChangePassword from "../components/changePassword";
 import userProfile from "../components/userProfile";
 import UpdateTripPage from "../pages/driver/updateTripPage";
 import ForgotPasswordPage from "../components/auth/forget-password";
+import AddBusByDriver from "../pages/driver/addBus";
+import UserDetail from "../pages/admin/userDetail";
+
 
 const routerConfig = createBrowserRouter([
   {
@@ -45,6 +48,7 @@ const routerConfig = createBrowserRouter([
       { path: "register", Component: RegisterForm },
       { path: "forget-password", Component: ForgotPasswordPage },
       { path: "activate", Component: Activate },
+    
     ],
   },
   {
@@ -69,6 +73,7 @@ const routerConfig = createBrowserRouter([
       { path: "promos", Component: PromoListPage },
       { path: "promos/add-promo", Component: AdminOfferPages },
       { path: "users", Component: Users },
+      { path: "users/:id", Component: UserDetail },
       { path: "chat", Component: ChatPage },
     ],
   },
@@ -82,7 +87,7 @@ const routerConfig = createBrowserRouter([
       },
       { path: "my-bus", Component: DriverBusPage },
       { path: "trip/edit/:tripId", Component: UpdateTripPage },
-      { path: "add-bus", Component: AddBus },
+      { path: "add-bus", Component: AddBusByDriver },
       { path: "settings/profile", Component: userProfile },
       { path: "settings/password", Component: ChangePassword },
       { path: "trip-update/:busId", Component: DriverTripPage },
