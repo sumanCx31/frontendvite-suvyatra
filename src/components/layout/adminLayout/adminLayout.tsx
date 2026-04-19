@@ -11,7 +11,8 @@ import {
   X,
   Gift,
   Image as ImageIcon,
-  ChevronDown, // Added for dropdown indicator
+  ChevronDown,
+  LogOut, // Added Logout Icon
 } from "lucide-react";
 import { Outlet, useLocation, useNavigate, Link } from "react-router"; 
 import { useAuth } from "../../../context/auth.context";
@@ -23,6 +24,8 @@ const AdminPage = () => {
   const [isAuthorizing, setIsAuthorizing] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
+  
+  // ✅ Destructure logout from Auth Context
   const { loggedInUser } = useAuth();
 
   useEffect(() => {
@@ -46,6 +49,15 @@ const AdminPage = () => {
     }
   }, [loggedInUser, navigate, isAuthorizing]);
 
+  // ✅ Logout Handler
+  const handleLogout = () => {
+   localStorage.clear();
+    toast.success("Logged out successfully!", {
+        description: "See you again soon!"
+    });
+    navigate("/");
+  };
+
   if (isAuthorizing || !loggedInUser || loggedInUser.role !== 'admin') {
     return (
       <div className="h-screen w-screen flex flex-col items-center justify-center bg-slate-900">
@@ -58,6 +70,7 @@ const AdminPage = () => {
   return (
     <div className="flex h-screen w-full bg-slate-950 text-slate-200 font-sans overflow-hidden">
       
+      {/* Sidebar */}
       <aside
         className={`fixed lg:static top-0 left-0 h-full w-72 
         bg-slate-900 border-r border-white/5 
@@ -123,6 +136,7 @@ const AdminPage = () => {
             />
           </Link>
 
+          {/* Settings Group */}
           <div className="space-y-1">
             <button 
               onClick={() => setSettingsOpen(!settingsOpen)} 
@@ -145,15 +159,31 @@ const AdminPage = () => {
                 <Link to="/admin/settings/password" onClick={() => setIsOpen(false)} className="block">
                   <SubNavItem label="Password" active={location.pathname === "/admin/settings/password"} />
                 </Link>
+                
+                {/* ✅ Logout Action */}
+                <button 
+                  onClick={handleLogout} 
+                  className="w-full text-left outline-none block"
+                >
+                  <SubNavItem 
+                    label="Logout" 
+                    isDanger={true} 
+                  />
+                </button>
               </div>
             )}
           </div>
         </nav>
 
+        {/* User Profile Footer */}
         <div className="mt-auto pt-6 border-t border-white/5">
             <div className="flex items-center gap-3 px-2">
-                <div className="size-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500 font-bold">
-                    {loggedInUser?.name?.charAt(0) || 'A'}
+                <div className="size-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500 font-bold overflow-hidden">
+                    {loggedInUser?.image?.secureUrl ? (
+                        <img src={loggedInUser.image.secureUrl} alt="profile" className="w-full h-full object-cover" />
+                    ) : (
+                        loggedInUser?.name?.charAt(0) || 'A'
+                    )}
                 </div>
                 <div className="flex-1 overflow-hidden">
                     <p className="text-sm font-bold text-white truncate">{loggedInUser?.name}</p>
@@ -163,6 +193,7 @@ const AdminPage = () => {
         </div>
       </aside>
 
+      {/* Mobile Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm lg:hidden z-40"
@@ -170,6 +201,7 @@ const AdminPage = () => {
         />
       )}
 
+      {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         <header className="lg:hidden flex items-center justify-between p-4 border-b border-white/5 bg-slate-900">
           <div className="flex items-center">
@@ -181,7 +213,7 @@ const AdminPage = () => {
         </header>
 
         <main className="flex-1 overflow-y-auto scroll-smooth custom-scrollbar">
-          <div className="p-4 sm:p-6 lg:p-10 max-w-400 mx-auto">
+          <div className="p-4 sm:p-6 lg:p-10 max-w-[1600px] mx-auto">
             <Outlet />
           </div>
         </main>
@@ -206,7 +238,6 @@ const NavItem = ({ icon, label, active = false, isDropdown = false, isOpen = fal
       </span>
       <span className="text-sm tracking-tight">{label}</span>
     </div>
-    {/* ✅ Dropdown Icon */}
     {isDropdown && (
       <ChevronDown 
         size={16} 
@@ -216,13 +247,16 @@ const NavItem = ({ icon, label, active = false, isDropdown = false, isOpen = fal
   </div>
 );
 
-/* ✅ Sub Nav Item Component */
-const SubNavItem = ({ label, active = false }: any) => (
-  <div className={`py-2 px-4 rounded-xl text-xs font-bold transition-all ${
+/* ✅ Sub Nav Item Component Updated */
+const SubNavItem = ({ label, active = false, isDanger = false }: any) => (
+  <div className={`py-2 px-4 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
     active 
     ? "text-emerald-500 bg-emerald-500/5" 
+    : isDanger
+    ? "text-slate-500 hover:text-red-400 hover:bg-red-500/5 hover:pl-5"
     : "text-slate-500 hover:text-slate-300 hover:pl-5"
   }`}>
+    {isDanger && <LogOut size={12} />}
     {label}
   </div>
 );

@@ -23,6 +23,9 @@ const DriverPage = () => {
   const { loggedInUser } = useAuth();
   const handleLogout = () => { 
   localStorage.clear(); 
+  toast.success("Logged out successfully!", {
+        description: "See you again soon!"
+    });
   navigate("/");
 };
 

@@ -37,6 +37,7 @@ import UpdateTripPage from "../pages/driver/updateTripPage";
 import ForgotPasswordPage from "../components/auth/forget-password";
 import AddBusByDriver from "../pages/driver/addBus";
 import UserDetail from "../pages/admin/userDetail";
+import BusUpdatePage from "../pages/admin/busUpdate";
 
 
 const routerConfig = createBrowserRouter([
@@ -63,6 +64,7 @@ const routerConfig = createBrowserRouter([
       { path: "bookings", Component: BookingsPage },
       { path: "manage-buses", Component: ManageBus },
       { path: "manage-buses/add-bus", Component: AddBus },
+      { path: "manage-buses/edit-bus/:id", Component: BusUpdatePage },
       { path: "manage-buses/view-routes/:busId", Component: viewRoutes },
       { path: "banners/add-banner", Component: AddBanner },
       { path: "banners/update/:_id", Component: updateBanner },
