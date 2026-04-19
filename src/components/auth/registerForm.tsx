@@ -133,8 +133,9 @@ const RegisterForm: React.FC = () => {
                   {...field}
                   className="input w-full focus:outline-none focus:ring-0"
                 >
-                  <option value="passenger">passenger</option>
-                  <option value="driver">driver</option>
+                  <option value="passenger">Passenger</option>
+                  <option value="driver">Driver</option>
+                  <option value="admin">Admin</option>
                 </select>
               )}
             />
